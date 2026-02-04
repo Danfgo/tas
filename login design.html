@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UAT-UK Login</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f6f7f8;
+        }
+
+        /* Header */
+        header {
+            background: #ffffff;
+            padding: 20px 40px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #555;
+            font-size: 14px;
+            vertical-align: top;
+            margin-left: 8px;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            padding: 30px 40px;
+            gap: 30px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .sidebar a:last-child {
+            font-weight: normal;
+        }
+
+        /* Main Card */
+        .main {
+            flex: 1;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            max-width: 700px;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            background: #d9f3fb;
+            color: #003b4a;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .login-btn {
+            display: inline-block;
+            background: #0086a8;
+            color: #fff;
+            padding: 12px 22px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .login-btn:hover {
+            background: #006f8a;
+        }
+
+        .links {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .links a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .info-box.small {
+            margin-top: 15px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        UAT UK <span>University Admissions Tests</span>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#">Home</a>
+        <a href="#">FAQs</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <div class="card">
+            <h1>Login</h1>
+
+            <div class="info-box">
+                Please log in.
+            </div>
+
+            <form onsubmit="return false;">
+                <label>Email Address:</label>
+                <input type="email" placeholder="">
+
+                <label>Password:</label>
+                <input type="password" placeholder="">
+
+                <!-- Login button loads an empty page -->
+                <a href="home page.html" class="login-btn">Login</a>
+            </form>
+
+            <div class="links">
+                <p>Forgot your password? <a href="#">Reset it here.</a></p>
+            </div>
+
+            <div class="info-box small">
+                If you do not yet have a UAT-UK account, <a href="#">please register here</a>.
+            </div>
+
+            <div class="info-box small">
+                If you need help, please log in to access your account and send us a message.
+                This is the quickest way to get a response.<br><br>
+                Candidates that cannot access their account for any reason can get help by
+                filling out the form here. Please ensure you provide your UAT-UK candidate ID,
+                your full name, and a description of the issue you are experiencing.
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

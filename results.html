@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Test Results</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f6f7f8;
+        }
+
+        header {
+            background: #ffffff;
+            padding: 18px 40px;
+            border-bottom: 1px solid #ddd;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+            padding: 30px 40px;
+            gap: 30px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+
+        .sidebar h4 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px 0;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .sidebar a.active {
+            font-weight: bold;
+        }
+
+        /* Main content */
+        .main {
+            flex: 1;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .subtext {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .accordion {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 15px 20px;
+            background: #f9f9f9;
+            font-weight: bold;
+        }
+
+        .module-title {
+            margin: 15px 0;
+            font-size: 14px;
+            color: #0077cc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead {
+            background: #1673e6;
+            color: #fff;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        tbody tr {
+            background: #f1f1f1;
+            border-top: 6px solid #fff;
+        }
+
+        .score {
+            display: inline-block;
+            background: #29b6c8;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .info-box {
+            margin-top: 20px;
+            background: #d9f3fb;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 17px;
+            color: #003b4a;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    UAT UK
+</header>
+
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#">Home</a>
+        <h4>Information</h4>
+        <a href="#">Messages</a>
+        <a href="#">FAQs</a>
+        <h4>Tests</h4>
+        <a href="#" class="active">Results</a>
+        <a href="#">Bursary</a>
+        <a href="#">Access Arrangements</a>
+        <a href="#">Pearson VUE Dashboard</a>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+        <div class="card">
+            <h1>My Test Results</h1>
+            <p class="subtext">
+                View your test scores and module results below.
+            </p>
+
+            <div class="accordion">
+                <div class="accordion-header">
+                    Engineering and Science Admissions Test (ESAT)
+                </div>
+
+                <div style="padding: 20px;">
+                    <div class="module-title">Module Results</div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Module</th>
+                                <th>Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mathematics 1</td>
+                                <td><span class="score">Score: 2.3</span></td>
+                            </tr>
+                            <tr>
+                                <td>Physics</td>
+                                <td><span class="score">Score: 1.8</span></td>
+                            </tr>
+                            <tr>
+                                <td>Mathematics 2</td>
+                                <td><span class="score">Score: 4.7</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="info-box">
+    The individual marks for each module can be found <a href="scores page.html" style="font-weight: bold; text-decoration: underline;">here</a>.
+    This gives information about how to interpret your scores.
+</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
