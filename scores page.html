@@ -26,9 +26,7 @@
         border-bottom: 1px solid var(--uat-border);
     }
 
-    .container {
-        display: flex;
-    }
+    .container { display: flex; }
 
     .sidebar {
         width: 220px;
@@ -38,26 +36,11 @@
         min-height: calc(100vh - 60px);
     }
 
-    .sidebar ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
+    .sidebar ul { list-style: none; padding: 0; margin: 0; }
+    .sidebar li { margin-bottom: 14px; font-size: 14px; color: #333; }
+    .sidebar li strong { color: var(--uat-blue); }
 
-    .sidebar li {
-        margin-bottom: 14px;
-        font-size: 14px;
-        color: #333;
-    }
-
-    .sidebar li strong {
-        color: var(--uat-blue);
-    }
-
-    .content {
-        flex: 1;
-        padding: 32px;
-    }
+    .content { flex: 1; padding: 32px; }
 
     .card {
         background: #ffffff;
@@ -67,9 +50,7 @@
     }
 
     h1 { margin-top:0; font-size:26px; }
-
     .subtitle { color:#666; margin-bottom:24px; font-size:14px; }
-
     .section-title { font-weight:bold; margin-bottom:12px; }
 
     table { width:100%; border-collapse: collapse; }
@@ -111,8 +92,7 @@
 
     #rejectOverlay {
         position: fixed;
-        top:0; left:0;
-        width:100vw; height:100vh;
+        inset: 0;
         background: rgba(255,255,255,0.95);
         display:flex;
         align-items:center;
@@ -121,7 +101,6 @@
         font-weight:900;
         color: crimson;
         z-index:9999;
-        flex-direction: column;
         user-select:none;
         opacity:0;
         pointer-events:none;
@@ -174,12 +153,10 @@
 
             <div class="info-box">
                 These scores are used by universities as part of a holistic admissions process.
-                Performance across relevant modules may strengthen an application when considered
-                alongside academic history, personal statements, and interviews.
 
                 <div id="conditionalMessage" class="conditional-message"></div>
 
-                <a id="runawayLink" class="runaway" href="#" target="_blank">
+                <a id="runawayLink" class="runaway" href="#">
                     Click to see university ESAT requirements (e.g Imperial)
                 </a>
             </div>
@@ -190,7 +167,7 @@
 <div id="rejectOverlay">Imperial Reject</div>
 
 <script>
-    // Conditional message
+    /* -------- Conditional message -------- */
     const scores = [...document.querySelectorAll('.score-pill')].map(el => Number(el.dataset.score));
     const average = scores.reduce((a,b)=>a+b,0)/scores.length;
     const messageEl = document.getElementById('conditionalMessage');
@@ -206,15 +183,33 @@
         messageEl.style.color = 'crimson';
     }
 
-    // Runaway link logic
+    /* -------- Runaway + reject logic -------- */
     const link = document.getElementById('runawayLink');
-    let offsetX=0, offsetY=0, runawayEnabled=true;
-    const dangerRadius=160;
-    const rejectOverlay=document.getElementById('rejectOverlay');
-    const confettiColors=['#0b5ed7','#18a2b8','#ff4d4d','#ffa500','#32cd32','#1e73d8'];
+    const rejectOverlay = document.getElementById('rejectOverlay');
+
+    let offsetX = 0, offsetY = 0;
+    let runawayEnabled = true;
+    let timerStarted = false;
+    let timerId;
+    let rejected = false;
+
+    const dangerRadius = 160;
+    const confettiColors = ['#0b5ed7','#18a2b8','#ff4d4d','#ffa500','#32cd32'];
+
+    function triggerImperialReject(){
+        if (rejected) return;
+        rejected = true;
+
+        runawayEnabled = false;
+        rejectOverlay.classList.add('visible');
+        launchConfetti(150);
+
+        link.style.transform = 'translate(0,0)';
+        link.style.cursor = 'default';
+    }
 
     function createConfettiPiece(){
-        const confetti=document.createElement('div');
+        const confetti = document.createElement('div');
         confetti.style.position='fixed';
         confetti.style.width='8px';
         confetti.style.height='12px';
@@ -232,8 +227,7 @@
         const startTime=performance.now();
 
         function animate(now){
-            const elapsed=now-startTime;
-            const progress=Math.min(elapsed/duration,1);
+            const progress=Math.min((now-startTime)/duration,1);
             confetti.style.transform=`translate(${xMove*progress}px, ${yMove*progress}px) rotate(${rotate*progress}deg)`;
             if(progress<1) requestAnimationFrame(animate);
             else confetti.remove();
@@ -242,52 +236,42 @@
         document.body.appendChild(confetti);
     }
 
-    function launchConfetti(count=150){
+    function launchConfetti(count){
         for(let i=0;i<count;i++){
-            setTimeout(createConfettiPiece,i*5);
+            setTimeout(createConfettiPiece, i*5);
         }
     }
 
     document.addEventListener('mousemove', e=>{
         if(!runawayEnabled) return;
-        const rect=link.getBoundingClientRect();
-        const linkCenterX=rect.left + rect.width/2;
-        const linkCenterY=rect.top + rect.height/2;
-        const dx=linkCenterX - e.clientX;
-        const dy=linkCenterY - e.clientY;
-        const distance=Math.sqrt(dx*dx + dy*dy);
-        if(distance<dangerRadius){
-            const force=(dangerRadius-distance)/dangerRadius;
-            offsetX += (dx/distance)*force*40;
-            offsetY += (dy/distance)*force*40;
-            offsetX=Math.max(-250,Math.min(250,offsetX));
-            offsetY=Math.max(-120,Math.min(120,offsetY));
-            link.style.transform=`translate(${offsetX}px,${offsetY}px)`;
+        const rect = link.getBoundingClientRect();
+        const cx = rect.left + rect.width/2;
+        const cy = rect.top + rect.height/2;
+        const dx = cx - e.clientX;
+        const dy = cy - e.clientY;
+        const dist = Math.hypot(dx,dy);
+
+        if(dist < dangerRadius){
+            const force = (dangerRadius - dist) / dangerRadius;
+            offsetX += (dx/dist) * force * 40;
+            offsetY += (dy/dist) * force * 40;
+            offsetX = Math.max(-250, Math.min(250, offsetX));
+            offsetY = Math.max(-120, Math.min(120, offsetY));
+            link.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
         }
     });
 
-    link.addEventListener('mousedown', ()=>{
-        if(!runawayEnabled) return;
-        offsetX += Math.random()*80-40;
-        offsetY += Math.random()*40-20;
-        link.style.transform=`translate(${offsetX}px,${offsetY}px)`;
-    });
-
-    // 5-second trap
-    let timerStarted=false, timerId;
     link.addEventListener('mouseenter', ()=>{
         if(timerStarted) return;
-        timerStarted=true;
-        timerId=setTimeout(()=>{
-            runawayEnabled=false;
-            rejectOverlay.classList.add('visible');
-            launchConfetti(150);
-            link.style.transform='translate(0,0)';
-            link.style.cursor='default';
-        },3000); // 5 seconds
+        timerStarted = true;
+        timerId = setTimeout(triggerImperialReject, 3000);
     });
 
-    link.addEventListener('click', ()=>{ clearTimeout(timerId); });
+    link.addEventListener('click', e=>{
+        e.preventDefault();
+        clearTimeout(timerId);
+        triggerImperialReject();
+    });
 </script>
 
 </body>
