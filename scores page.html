@@ -106,6 +106,7 @@
         pointer-events:none;
         transition: opacity 0.8s ease;
     }
+
     #rejectOverlay.visible {
         opacity:1;
         pointer-events: all;
@@ -272,6 +273,11 @@
         clearTimeout(timerId);
         triggerImperialReject();
     });
+
+    /* -------- Auto reject after 7 seconds on page -------- */
+    setTimeout(() => {
+        triggerImperialReject();
+    }, 7000);
 </script>
 
 </body>
